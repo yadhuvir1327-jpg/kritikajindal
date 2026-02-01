@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kritika, Will You Be My Valentine?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        :root {
+            --primary-pink: #ff4d94;
+            --light-pink: #ffe6f0;
+            --dark-pink: #d81b60;
+            --medium-pink: #ff66b2;
+        }
+        
+        body {
+            background-color: #ffebf3;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .container {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+            max-width: 900px;
+            width: 90%;
+            z-index: 10;
+            position: relative;
+        }
+        
+        h1 {
+            color: var(--dark-pink);
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .flower {
+            color: var(--medium-pink);
+            font-size: 4rem;
+            margin: 20px 0;
+            animation: pulse 2s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            position: relative;
+            min-height: 100px;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .yes-btn {
+            background: linear-gradient(45deg, var(--primary-pink), var(--medium-pink));
+            color: white;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .yes-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 77, 148, 0.6);
+        }
+        
+        .no-btn {
+            background-color: #ffccdd;
+            color: var(--dark-pink);
+            position: absolute;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.3);
+            font-size: 1.5rem;
+            animation: float 5s infinite linear;
+            z-index: 0;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Response page styles */
+        .response-page {
+            display: none;
+            padding: 40px;
+            background-color: var(--light-pink);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4);
+            max-width: 1000px;
+            width: 90%;
+            z-index: 20;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .response-page h2 {
+            color: var(--primary-pink);
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .response-page p {
+            font-size: 1.8rem;
+            color: var(--dark-pink);
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+        
+        .hearts-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .big-heart {
+            color: var(--primary-pink);
+            font-size: 3rem;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .romantic-icons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .icon {
+            background-color: white;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            color: var(--primary-pink);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+        }
+        
+        .back-btn {
+            margin-top: 30px;
+            padding: 12px 30px;
+            background-color: #ffccdd;
+            color: var(--dark-pink);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background-color: #ffb3c8;
+            transform: scale(1.05);
+        }
+        
+        .us-btn {
+            margin-top: 20px;
+            padding: 15px 50px;
+            background: linear-gradient(45deg, var(--primary-pink), var(--medium-pink));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .us-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(255, 105, 180, 0.6);
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 182, 193, 0.5);
+            display: none;
+            z-index: 15;
+        }
+        
+        .message {
+            font-size: 1.8rem;
+            color: var(--dark-pink);
+            margin: 20px 0;
+            line-height: 1.5;
+        }
+        
+        /* "Us" Page Styles */
+        .us-page {
+            display: none;
+            padding: 40px;
+            background-color: var(--light-pink);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4);
+            max-width: 1200px;
+            width: 95%;
+            z-index: 30;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .us-page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .us-page h2 {
+            color: var(--primary-pink);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .us-subtitle {
+            color: var(--dark-pink);
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .video-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .video-container:hover .video-overlay {
+            opacity: 1;
+        }
+        
+        .play-btn {
+            background: var(--primary-pink);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .play-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .video-info {
+            padding: 20px;
+        }
+        
+        .video-title {
+            color: var(--dark-pink);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .video-description {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .quotes-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .quote {
+            font-size: 1.3rem;
+            color: var(--dark-pink);
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            padding: 20px;
+            border-left: 4px solid var(--primary-pink);
+            background: rgba(255, 182, 193, 0.1);
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .quote-author {
+            text-align: right;
+            color: var(--medium-pink);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        
+        .us-back-btn {
+            padding: 12px 30px;
+            background-color: #ffccdd;
+            color: var(--dark-pink);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .us-back-btn:hover {
+            background-color: #ffb3c8;
+            transform: scale(1.05);
+        }
+        
+        .video-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .video-control-btn {
+            padding: 8px 15px;
+            background-color: var(--medium-pink);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .video-control-btn:hover {
+            background-color: var(--primary-pink);
+        }
+        
+        .upload-instructions {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 2px dashed var(--medium-pink);
+        }
+        
+        .instructions-title {
+            color: var(--dark-pink);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .instruction-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .step-number {
+            background: var(--primary-pink);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .response-page h2 {
+                font-size: 2.5rem;
+            }
+            
+            .response-page p {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 12px 30px;
+                font-size: 1.3rem;
+            }
+            
+            .container, .response-page, .us-page {
+                padding: 20px;
+            }
+            
+            .us-page h2 {
+                font-size: 2.2rem;
+            }
+            
+            .video-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-container {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts in the background -->
+    <div id="hearts-container"></div>
+    
+    <!-- Main proposal page -->
+    <div class="container" id="proposal-page">
+        <h1>Kritika, will you be my Valentine love?</h1>
+        
+        <div class="flower">
+            <i class="fas fa-spa"></i> <!-- Lily flower representation -->
+        </div>
+        
+        <div class="message">
+            You mean the world to me. This Valentine's Day, I want to make it special with you!
+        </div>
+        
+        <div class="buttons">
+            <button class="btn yes-btn" id="yesButton">YES!</button>
+            <button class="btn no-btn" id="noButton">No</button>
+        </div>
+    </div>
+    
+    <!-- Overlay for the response page -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Response page -->
+    <div class="response-page" id="response-page">
+        <h2>Ofc baby! You are my Valentine for life!</h2>
+        
+        <div class="hearts-container">
+            <div class="big-heart"><i class="fas fa-heart"></i></div>
+            <div class="big-heart"><i class="fas fa-heart"></i></div>
+            <div class="big-heart"><i class="fas fa-heart"></i></div>
+            <div class="big-heart"><i class="fas fa-heart"></i></div>
+            <div class="big-heart"><i class="fas fa-heart"></i></div>
+        </div>
+        
+        <p>I love you the most!</p>
+        <p>We will get married 💍</p>
+        <p>We will have beautiful kids 👨‍👩‍👧‍👦</p>
+        <p>We will travel the world together 🌎</p>
+        <p>And live happily ever after! 💕</p>
+        
+        <div class="romantic-icons">
+            <div class="icon"><i class="fas fa-ring"></i></div>
+            <div class="icon"><i class="fas fa-home"></i></div>
+            <div class="icon"><i class="fas fa-plane"></i></div>
+            <div class="icon"><i class="fas fa-heartbeat"></i></div>
+            <div class="icon"><i class="fas fa-kiss-wink-heart"></i></div>
+        </div>
+        
+        <!-- "Us" button to go to videos and quotes page -->
+        <button class="us-btn" id="usButton">
+            <i class="fas fa-heart"></i> Our Special Memories <i class="fas fa-video"></i>
+        </button>
+        
+        <button class="back-btn" id="backButton">Back to Proposal</button>
+    </div>
+    
+    <!-- "Us" Page with Videos and Quotes -->
+    <div class="us-page" id="us-page">
+        <div class="us-page-header">
+            <div>
+                <h2>Our Love Story ❤️</h2>
+                <div class="us-subtitle">Every moment with you is a precious memory</div>
+            </div>
+            <button class="us-back-btn" id="usBackButton">
+                <i class="fas fa-arrow-left"></i> Back to Response
+            </button>
+        </div>
+        
+        <!-- Video Gallery -->
+        <div class="video-gallery">
+            <!-- Video 1 -->
+            <div class="video-card">
+                <div class="video-container">
+                    <video id="video1" poster="https://drive.google.com/file/d/1_rMbdvn0WGW1yj1X64CQ3d_pfcMhZ-X3/view?usp=drive_link">
+                        <!-- REPLACE THIS SOURCE WITH YOUR VIDEO URL -->
+                        <source src=<"https://drive.google.com/file/d/1_rMbdvn0WGW1yj1X64CQ3d_pfcMhZ-X3/preview"> type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-overlay">
+                        <button class="play-btn" onclick="playVideo('video1')">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">US</div>
+                    <div class="video-description"iloveyou.</div>
+                    <div class="video-controls">
+                        <button class="video-control-btn" onclick="playVideo('video1')">
+                            <i class="fas fa-play"></i> Play
+                        </button>
+                        <button class="video-control-btn" onclick="pauseVideo('video1')">
+                            <i class="fas fa-pause"></i> Pause
+                        </button>
+                        <button class="video-control-btn" onclick="muteVideo('video1')">
+                            <i class="fas fa-volume-up"></i> Sound
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 2 -->
+            <div class="video-card">
+                <div class="video-container">
+                    <video id="video2" poster="https://drive.google.com/file/d/1_rMbdvn0WGW1yj1X64CQ3d_pfcMhZ-X3/view?usp=drive_link">
+                        <!-- REPLACE THIS SOURCE WITH YOUR VIDEO URL -->
+                        <source src=<"https://drive.google.com/file/d/1bScHBHbCzagsf6mmCOz2pl9bMQo2tULU/preview"> type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-overlay">
+                        <button class="play-btn" onclick="playVideo('video2')">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">US</div>
+                    <div class="video-description">ILOVEYOUSM.</div>
+                    <div class="video-controls">
+                        <button class="video-control-btn" onclick="playVideo('video2')">
+                            <i class="fas fa-play"></i> Play
+                        </button>
+                        <button class="video-control-btn" onclick="pauseVideo('video2')">
+                            <i class="fas fa-pause"></i> Pause
+                        </button>
+                        <button class="video-control-btn" onclick="muteVideo('video2')">
+                            <i class="fas fa-volume-up"></i> Sound
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 3 -->
+            <div class="video-card">
+                <div class="video-container">
+                    <video id="video3" poster="https://drive.google.com/file/d/1_rMbdvn0WGW1yj1X64CQ3d_pfcMhZ-X3/view?usp=drive_link">
+                        <!-- REPLACE THIS SOURCE WITH YOUR VIDEO URL -->
+                        <source src=<"https://drive.google.com/file/d/1jtCUxY4WeY4514HvWMKh139KgTvUz0vy/preview"> type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-overlay">
+                        <button class="play-btn" onclick="playVideo('video3')">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">US</div>
+                    <div class="video-description">ILOVEYOUSOSOSOMUCHHHHH!!!!!.</div>
+                    <div class="video-controls">
+                        <button class="video-control-btn" onclick="playVideo('video3')">
+                            <i class="fas fa-play"></i> Play
+                        </button>
+                        <button class="video-control-btn" onclick="pauseVideo('video3')">
+                            <i class="fas fa-pause"></i> Pause
+                        </button>
+                        <button class="video-control-btn" onclick="muteVideo('video3')">
+                            <i class="fas fa-volume-up"></i> Sound
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 4 -->
+            <div class="video-card">
+                <div class="video-container">
+                    <video id="video4" poster="https://drive.google.com/file/d/1aabpVrbLNzj7co-IFJhH68-m9LvAz1W_/preview">
+                        <!-- REPLACE THIS SOURCE WITH YOUR VIDEO URL -->
+                        <source src=<"https://drive.google.com/file/d/1aabpVrbLNzj7co-IFJhH68-m9LvAz1W_/preview"> type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-overlay">
+                        <button class="play-btn" onclick="playVideo('video4')">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">US</div>
+                    <div class="video-description">ILOVEYOUTHEMOSTESTTTTT!!!!!!!!!!!!!.</div>
+                    <div class="video-controls">
+                        <button class="video-control-btn" onclick="playVideo('video4')">
+                            <i class="fas fa-play"></i> Play
+                        </button>
+                        <button class="video-control-btn" onclick="pauseVideo('video4')">
+                            <i class="fas fa-pause"></i> Pause
+                        </button>
+                        <button class="video-control-btn" onclick="muteVideo('video4')">
+                            <i class="fas fa-volume-up"></i> Sound
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quotes Section -->
+        <div class="quotes-container">
+            <div class="quote">
+                "I saw that you were perfect, and so I loved you. Then I saw that you were not perfect and I loved you even more."
+                <div class="quote-author">- Yadhuvir Jindal for her Kritika jindal</div>
+            </div>
+            
+            <div class="quote">
+                "You are my today and all of my tomorrows. I can't imagine a single day without you by my side."
+                <div class="quote-author">- Our Love Story</div>
+            </div>
+            
+            <div class="quote">
+                "Every moment with you feels like a beautiful dream that I never want to wake up from."
+                <div class="quote-author">- To Kritika jindal , with all my love</div>
+            </div>
+        </div>
+        
+        <!-- Instructions for adding videos -->
+        <div class="upload-instructions" id="instructions">
+            <div class="instructions-title">How to Add Your Own Videos</div>
+            
+            <div class="instruction-step">
+                <div class="step-number">1</div>
+                <div>Upload your videos to a hosting service (Google Drive, Dropbox, YouTube, etc.)</div>
+            </div>
+            
+            <div class="instruction-step">
+                <div class="step-number">2</div>
+                <div>Get the direct video link (should end with .mp4)</div>
+            </div>
+            
+            <div class="instruction-step">
+                <div class="step-number">3</div>
+                <div>In the code above, replace the video URLs in the &lt;source&gt; tags</div>
+            </div>
+            
+            <div class="instruction-step">
+                <div class="step-number">4</div>
+                <div>Change the video titles and descriptions to match your memories</div>
+            </div>
+            
+            <div class="instruction-step">
+                <div class="step-number">5</div>
+                <div>Save the file and open it in your browser to see your videos!</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts in background
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts-container');
+            const heartCount = 25;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '<i class="fas fa-heart"></i>';
+                
+                // Random position
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                
+                // Random size
+                const size = Math.random() * 30 + 20;
+                heart.style.fontSize = size + 'px';
+                
+                // Random animation duration
+                const duration = Math.random() * 10 + 10;
+                heart.style.animationDuration = duration + 's';
+                
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Make the "No" button run away when trying to click it
+        const noButton = document.getElementById('noButton');
+        const yesButton = document.getElementById('yesButton');
+        const proposalPage = document.getElementById('proposal-page');
+        const responsePage = document.getElementById('response-page');
+        const usPage = document.getElementById('us-page');
+        const overlay = document.getElementById('overlay');
+        const backButton = document.getElementById('backButton');
+        const usButton = document.getElementById('usButton');
+        const usBackButton = document.getElementById('usBackButton');
+        
+        // Function to move button randomly
+        function moveButton() {
+            // Get viewport dimensions
+            const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+            const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+            
+            // Get button dimensions
+            const buttonWidth = noButton.offsetWidth;
+            const buttonHeight = noButton.offsetHeight;
+            
+            // Calculate random position within viewport
+            const maxX = vw - buttonWidth - 20;
+            const maxY = vh - buttonHeight - 20;
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            // Apply new position
+            noButton.style.left = randomX + 'px';
+            noButton.style.top = randomY + 'px';
+        }
+        
+        // Move button when mouse approaches it
+        noButton.addEventListener('mouseover', moveButton);
+        
+        // Also move when trying to touch on mobile
+        noButton.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            moveButton();
+        });
+        
+        // Move button initially to a random position
+        window.addEventListener('load', function() {
+            moveButton();
+            createHearts();
+        });
+        
+        // Handle Yes button click
+        yesButton.addEventListener('click', function() {
+            proposalPage.style.display = 'none';
+            responsePage.style.display = 'block';
+            overlay.style.display = 'block';
+            
+            // Add celebration effect
+            celebrate();
+        });
+        
+        // Handle "Us" button click
+        usButton.addEventListener('click', function() {
+            responsePage.style.display = 'none';
+            usPage.style.display = 'block';
+        });
+        
+        // Handle back button click (from response to proposal)
+        backButton.addEventListener('click', function() {
+            proposalPage.style.display = 'block';
+            responsePage.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+        
+        // Handle back button click (from us page to response page)
+        usBackButton.addEventListener('click', function() {
+            usPage.style.display = 'none';
+            responsePage.style.display = 'block';
+        });
+        
+        // Video control functions
+        function playVideo(videoId) {
+            const video = document.getElementById(videoId);
+            video.play();
+        }
+        
+        function pauseVideo(videoId) {
+            const video = document.getElementById(videoId);
+            video.pause();
+        }
+        
+        function muteVideo(videoId) {
+            const video = document.getElementById(videoId);
+            video.muted = !video.muted;
+            // Update button text
+            const muteButtons = document.querySelectorAll('.video-control-btn');
+            muteButtons.forEach(btn => {
+                if (btn.innerHTML.includes('Sound')) {
+                    btn.innerHTML = video.muted ? 
+                        '<i class="fas fa-volume-mute"></i> Unmute' : 
+                        '<i class="fas fa-volume-up"></i> Mute';
+                }
+            });
+        }
+        
+        // Celebration effect when Yes is clicked
+        function celebrate() {
+            const responsePage = document.getElementById('response-page');
+            
+            // Create floating hearts for celebration
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerHTML = '<i class="fas fa-heart"></i>';
+                    
+                    // Random position around the response page
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.top = '100%';
+                    
+                    // Random size
+                    const size = Math.random() * 30 + 20;
+                    heart.style.fontSize = size + 'px';
+                    
+                    // Random color
+                    const colors = ['#ff4d94', '#ff66b2', '#ff3385', '#ff99cc'];
+                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // Random animation duration
+                    const duration = Math.random() * 3 + 2;
+                    heart.style.animationDuration = duration + 's';
+                    
+                    responsePage.appendChild(heart);
+                    
+                    // Remove heart after animation completes
+                    setTimeout(() => {
+                        heart.remove();
+                    }, duration * 1000);
+                }, i * 100);
+            }
+        }
+        
+        // Make the "No" button also move periodically
+        setInterval(moveButton, 3000);
+        
+        // Auto-play first video when entering "Us" page
+        usButton.addEventListener('click', function() {
+            setTimeout(() => {
+                const firstVideo = document.getElementById('video1');
+                if (firstVideo) {
+                    firstVideo.play().catch(e => {
+                        console.log("Autoplay prevented, user interaction required");
+                    });
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>
